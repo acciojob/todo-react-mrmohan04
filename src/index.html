@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>React Boilerplate</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget Checker</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="root">
-</div>
+  <h2>Enter your budget to check available items:</h2>
+  <input type="number" id="budgetInput" placeholder="Enter budget" />
+
+  <h3>Items you can buy are in <span style="color:green;">Green</span> color</h3>
+
+  <table id="itemsTable">
+    <tr><th>Item</th><th>Price</th></tr>
+  </table>
+
+  <script src="script.js"></script>
+</body>
 </html>
