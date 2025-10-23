@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 const items = [
   { name: "Apple", price: 20 },
   { name: "Banana", price: 10 },
@@ -8,29 +10,52 @@ const items = [
   { name: "Iphone", price: 80 }
 ];
 
-const budgetInput = document.getElementById('budgetInput');
-const table = document.getElementById('itemsTable');
+const App = () => {
+  const [budget, setBudget] = useState(0);
 
-function renderTable(budget) {
-  table.innerHTML = `
-    <tr><th>Item</th><th>Price</th></tr>
-  `;
+  const handleBudgetChange = (e) => {
+    setBudget(Number(e.target.value));
+  };
 
-  items.forEach(item => {
-    const row = document.createElement('tr');
-    const colorClass = item.price <= budget ? 'green' : 'red';
-    row.innerHTML = `
-      <td class="${colorClass}">${item.name}</td>
-      <td class="${colorClass}">${item.price}</td>
-    `;
-    table.appendChild(row);
-  });
-}
+  return (
+    <div>
+      <h1>Shopping List</h1>
+      <div>
+        <label htmlFor="budgetInput">Enter Budget: </label>
+        <input
+          id="budgetInput"
+          type="number"
+          value={budget}
+          onChange={handleBudgetChange}
+          placeholder="Enter your budget"
+        />
+      </div>
+      <table id="itemsTable">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {items.map((item, index) => {
+            const isAffordable = item.price <= budget;
+            const rowStyle = {
+              color: isAffordable ? 'green' : 'red',
+              fontWeight: 'bold'
+            };
 
-budgetInput.addEventListener('input', (e) => {
-  const budget = Number(e.target.value);
-  renderTable(budget);
-});
+            return (
+              <tr key={index} style={rowStyle}>
+                <td>{item.name}</td>
+                <td>{item.price}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
-// Initialize with no budget entered
-renderTable(0);
+export default App;
