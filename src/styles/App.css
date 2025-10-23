@@ -1,1 +1,30 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 30px;
+}
+
+input {
+  padding: 8px;
+  font-size: 16px;
+}
+
+table {
+  margin-top: 20px;
+  border-collapse: collapse;
+  width: 300px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
 
