@@ -1,42 +1,36 @@
-import React, { useState } from "react";
-import './../styles/App.css';
+const items = [
+  { name: "Apple", price: 20 },
+  { name: "Banana", price: 10 },
+  { name: "Neutella", price: 30 },
+  { name: "Razor", price: 5 },
+  { name: "CornFlakes", price: 15 },
+  { name: "Sound Bar", price: 50 },
+  { name: "Iphone", price: 80 }
+];
 
-const App = () => {
-  const [todos, setTodos] = useState([]);
-  const [inputValue, setInputValue] = useState("");
+const budgetInput = document.getElementById('budgetInput');
+const table = document.getElementById('itemsTable');
 
-  const handleAddTodo = () => {
-    if (inputValue.trim() !== "") {
-      setTodos([...todos, inputValue]);
-      setInputValue("");
-    }
-  };
+function renderTable(budget) {
+  table.innerHTML = `
+    <tr><th>Item</th><th>Price</th></tr>
+  `;
 
-  const handleDeleteTodo = (index) => {
-    const newTodos = todos.filter((_, i) => i !== index);
-    setTodos(newTodos);
-  };
+  items.forEach(item => {
+    const row = document.createElement('tr');
+    const colorClass = item.price <= budget ? 'green' : 'red';
+    row.innerHTML = `
+      <td class="${colorClass}">${item.name}</td>
+      <td class="${colorClass}">${item.price}</td>
+    `;
+    table.appendChild(row);
+  });
+}
 
-  return (
-    <div>
-      <h1>To-Do List</h1>
-      <input
-        type="text"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        placeholder="Enter a task"
-      />
-      <button onClick={handleAddTodo}>Add Todo</button>
-      <ul>
-        {todos.map((todo, index) => (
-          <li key={index}>
-            {todo}
-            <button onClick={() => handleDeleteTodo(index)}>Delete</button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+budgetInput.addEventListener('input', (e) => {
+  const budget = Number(e.target.value);
+  renderTable(budget);
+});
 
-export default App;
+// Initialize with no budget entered
+renderTable(0);
